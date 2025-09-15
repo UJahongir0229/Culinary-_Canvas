@@ -207,3 +207,5 @@ LOGGING = {
         },
     },
 }
+# JWT
+ALGORITHM = "HS256"

@@ -10,7 +10,7 @@ from rest_framework import status
 from .models import User
 from .serializers import UserRegisterSerializer, UserLoginSerializer
 
-# Create your views here.
+
 class UserRegisterAPIView(generics.CreateAPIView):
     queryset = User.objects.filter(is_active=True)
     serializer_class = UserRegisterSerializer
