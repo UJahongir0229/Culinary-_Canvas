@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
-from models import Category,Comment,Recipe,Rating
-from permissions import IsOwnerOrReadOnly
-from serializers import RatingSerializer, RecipeSerializer, CommentSerializer, CategorySerializer
+from .models import Recipe, Rating, Comment, Category
+from .permissions import IsOwnerOrReadOnly
+from .serializers import RatingSerializer, RecipeSerializer, CommentSerializer, CategorySerializer
 
 
 class CategoryCreateAPIView(generics.CreateAPIView):

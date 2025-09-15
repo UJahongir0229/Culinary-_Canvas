@@ -9,8 +9,20 @@ class Recipe(BaseModel):
     title = models.CharField(max_length=250, verbose_name=_("Recipe Title"))
     slug = models.SlugField(unique_for_date="published_at", verbose_name=_("Slug"))
 
-    author = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="recipes", verbose_name=_("Author"))
-    category = models.ForeignKey("recipes.Category", on_delete=models.SET_NULL, related_name="recipes", null=True, blank=True, verbose_name=_("Recipe Category"))
+    author = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="recipes",
+        verbose_name=_("Author")
+    )
+    category = models.ForeignKey(
+        "recipes.Category",
+        on_delete=models.SET_NULL,
+        related_name="recipes",
+        null=True,
+        blank=True,
+        verbose_name=_("Recipe Category")
+    )
 
     description = models.TextField(verbose_name=_("Description"))
     ingredients = models.TextField(verbose_name=_("Ingredients"))
@@ -43,10 +55,27 @@ class Category(BaseModel):
 class Comment(BaseModel):
     content = models.TextField(verbose_name=_("Comment Content"))
 
-    recipe = models.ForeignKey("recipes.Recipe", on_delete=models.CASCADE, related_name="comments", verbose_name=_("Recipe"))
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="comments", verbose_name=_("Comment Author"))
+    recipe = models.ForeignKey(
+        "recipes.Recipe",
+        on_delete=models.CASCADE,
+        related_name="comments",
+        verbose_name=_("Recipe")
+    )
+    user = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="comments",
+        verbose_name=_("Comment Author")
+    )
 
-    parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE, related_name="replies", verbose_name=_("Parent Comment"))
+    parent = models.ForeignKey(
+        "self",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="replies",
+        verbose_name=_("Parent Comment")
+    )
 
     is_active = models.BooleanField(default=True, verbose_name=_("Is Active"))
 
@@ -59,10 +88,23 @@ class Comment(BaseModel):
 
 
 class Rating(BaseModel):
-    user = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="ratings", verbose_name=_("User"))
-    recipe = models.ForeignKey("recipes.Recipe", on_delete=models.CASCADE, related_name="ratings", verbose_name=_("Recipe"))
+    user = models.ForeignKey(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="ratings",
+        verbose_name=_("User")
+    )
+    recipe = models.ForeignKey(
+        "recipes.Recipe",
+        on_delete=models.CASCADE,
+        related_name="ratings",
+        verbose_name=_("Recipe")
+    )
 
-    
+    score = models.PositiveSmallIntegerField(  # ⭐ baho (1–5)
+        choices=[(i, str(i)) for i in range(1, 6)],
+        verbose_name=_("Score")
+    )
     review = models.TextField(blank=True, null=True, verbose_name=_("Review"))
 
     class Meta:

@@ -6,23 +6,35 @@ from rest_framework_simplejwt.views import (
 )
 from django.conf import settings
 from django.conf.urls.static import static
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Salom! Django loyihangiz ishlayapti 🚀")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("", home, name="home"),   # asosiy sahifa
+    path("admin/", admin.site.urls),
 
-    path('users/', include('users.urls')),
-    path('', include('recipes.urls')),
+    # Apps
+    path("users/", include("users.urls")),
+    path("recipes/", include("recipes.urls")),
 
-    path('api-auth/', include('rest_framework.urls')),
-    path('api/token/', TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # Auth
+    path("api-auth/", include("rest_framework.urls")),
+    path("api/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    # Optional UI:
-    path('swagger', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger'),
-    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    # Schema & Docs
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("swagger/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
+    path("redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
 ]
 
+# Media va Static
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
