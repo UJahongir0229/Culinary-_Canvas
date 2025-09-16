@@ -1215,3 +1215,8 @@ Unauthorized: /recipes/categories/create/
 [mHTTP GET /recipes/categories/ 200 [0.02, 127.0.0.1:60322][0m
 Unauthorized: /recipes/categories/1/delete/
 [31;1mHTTP DELETE /recipes/categories/1/delete/ 401 [0.01, 127.0.0.1:60322][0m
+Watching for file changes with StatReloader
+[mHTTP GET /admin/ 200 [0.06, 127.0.0.1:54432][0m
+[mHTTP GET /admin/ 200 [0.04, 127.0.0.1:54432][0m
+[mHTTP GET /admin/ 200 [0.04, 127.0.0.1:54432][0m
+[mHTTP POST /admin/logout/ 200 [0.04, 127.0.0.1:54432][0m
